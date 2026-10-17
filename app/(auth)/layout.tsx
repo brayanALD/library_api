@@ -1,3 +1,5 @@
+import { Logo } from "@/components/logo";
+
 /**
  * Marco compartido de acceso y registro: panel de marca a la izquierda y formulario a la derecha.
  * En móvil el panel pasa arriba y se compacta.
@@ -6,9 +8,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   return (
     <div className="grid overflow-hidden rounded-3xl border border-line bg-surface md:grid-cols-2">
       <section className="flex flex-col justify-between gap-10 bg-hero p-8 text-on-hero md:p-12">
-        <span className="text-sm font-semibold uppercase tracking-[0.12em] text-caramel">
-          Biblioteca Aldana
-        </span>
+        <Logo tone="onDark" size="lg" />
         <div className="flex flex-col gap-4">
           <p className="font-serif text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl">
             Cada libro, a un clic de ti.

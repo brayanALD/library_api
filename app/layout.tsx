@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
 import { Header } from "@/components/header";
+import { Logo } from "@/components/logo";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -46,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <footer className="bg-hero text-hero-muted">
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-7 text-sm">
-            <span className="font-serif text-lg font-bold text-on-hero">Biblioteca Aldana</span>
+            <Logo tone="onDark" />
             <span>Catálogo y préstamo de libros</span>
           </div>
         </footer>
