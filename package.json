@@ -11,6 +11,7 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "seed": "tsx --env-file=.env scripts/seed.mts",
+    "seed-covers": "tsx --env-file=.env scripts/seed-covers.mts",
     "set-role": "tsx --env-file=.env scripts/set-role.mts",
     "create-user": "tsx --env-file=.env scripts/create-user.mts",
     "smoke": "tsx --env-file=.env scripts/smoke.mts",

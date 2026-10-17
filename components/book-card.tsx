@@ -20,18 +20,25 @@ function coverTone(title: string): string {
 }
 
 export function BookCover({ book, className = "" }: { book: Book; className?: string }) {
-  const shape = "rounded-l-sm rounded-r-xl border-l-8 border-brown";
   if (book.coverUrl) {
+    // Marco uniforme: las portadas reales tienen proporciones distintas, así que se muestran
+    // completas (object-contain) sobre un fondo cálido en vez de recortarlas.
     // Imagen dinámica servida por la propia API; next/image no aporta aquí.
     return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={book.coverUrl}
-        alt={`Portada de ${book.title}`}
-        className={`object-cover ${shape} ${className}`}
-      />
+      <div
+        className={`flex items-center justify-center overflow-hidden rounded-lg bg-line shadow-[0_6px_18px_rgba(114,17,33,0.18)] ${className}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={book.coverUrl}
+          alt={`Portada de ${book.title}`}
+          loading="lazy"
+          className="h-full w-full object-contain"
+        />
+      </div>
     );
   }
+  // Sin portada: reemplazo con la paleta de Aldana (lomo + inicial del título).
+  const shape = "rounded-l-sm rounded-r-xl border-l-8";
   return (
     <div
       aria-hidden
