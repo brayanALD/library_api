@@ -18,7 +18,6 @@
     "reset-demo": "tsx --env-file=.env scripts/reset-demo.mts"
   },
   "dependencies": {
-    "firebase": "^13.0.0",
     "firebase-admin": "^13.10.0",
     "next": "16.4.2",
     "react": "19.3.0",
