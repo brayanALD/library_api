@@ -13,11 +13,14 @@ async function RedirectIfSignedIn() {
 
 export default function LoginPage() {
   return (
-    <div className="mx-auto max-w-sm">
+    <div className="flex flex-col gap-7">
       <Suspense>
         <RedirectIfSignedIn />
       </Suspense>
-      <h1 className="mb-6 text-2xl font-semibold">Iniciar sesión</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="font-serif text-4xl font-bold tracking-tight text-accent">Iniciar sesión</h1>
+        <p className="text-base text-muted">Ingresa con tu correo para continuar.</p>
+      </div>
       <AuthForm mode="login" />
     </div>
   );

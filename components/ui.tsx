@@ -1,61 +1,101 @@
 import type { LoanStatus } from "@/lib/types";
 
 export const inputClass =
-  "w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm text-zinc-900 " +
-  "outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 " +
-  "dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100";
+  "w-full h-12 rounded-xl border-[1.5px] border-field-line bg-field px-3.5 text-base " +
+  "text-foreground placeholder:text-muted/70 outline-none focus-visible:border-brand";
 
 export const buttonClass =
-  "inline-flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2 text-sm " +
-  "font-medium text-white transition hover:bg-indigo-700 " +
+  "inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-brand px-6 text-base " +
+  "font-semibold text-on-brand transition hover:bg-brand-hover " +
   "disabled:cursor-not-allowed disabled:opacity-50";
 
 export const secondaryButtonClass =
-  "inline-flex items-center justify-center rounded-lg border border-zinc-300 px-3 py-1.5 " +
-  "text-sm font-medium text-zinc-700 transition hover:bg-zinc-100 disabled:opacity-50 " +
-  "dark:border-zinc-700 dark:text-zinc-200 dark:hover:bg-zinc-800";
+  "inline-flex h-11 items-center justify-center rounded-xl border-[1.5px] border-accent px-5 " +
+  "text-sm font-semibold text-accent transition hover:bg-chip disabled:opacity-50";
 
 /** Recuadro de "no hay nada que mostrar" (listas vacías). */
 export const emptyBoxClass =
-  "rounded-xl border border-dashed border-zinc-300 p-8 text-center text-zinc-500 " +
-  "dark:border-zinc-700";
+  "rounded-2xl border border-dashed border-field-line bg-surface p-10 text-center text-muted";
 
-const STATUS: Record<LoanStatus, { label: string; className: string }> = {
-  requested: {
-    label: "Solicitado",
-    className: "bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-200",
-  },
-  approved: {
-    label: "Prestado",
-    className: "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200",
-  },
+/** Tarjeta base reutilizable (catálogo, préstamos, ficha). */
+export const cardClass = "rounded-2xl border border-line bg-surface";
+
+type IconName = "check" | "clock" | "x" | "undo" | "alert" | "plus";
+
+const ICON_PATHS: Record<IconName, React.ReactNode> = {
+  check: <path d="M5 12l5 5L20 7" />,
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v5l3 2" />
+    </>
+  ),
+  x: <path d="M6 6l12 12M18 6L6 18" />,
+  undo: (
+    <>
+      <path d="M9 14L4 9l5-5" />
+      <path d="M4 9h10a6 6 0 010 12h-3" />
+    </>
+  ),
+  alert: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 7v6M12 16.5v.5" />
+    </>
+  ),
+  plus: <path d="M12 5v14M5 12h14" />,
+};
+
+/** Icono decorativo (el significado siempre va también en el texto). */
+export function Icon({ name, className = "h-4 w-4" }: { name: IconName; className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.4}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}>
+      {ICON_PATHS[name]}
+    </svg>
+  );
+}
+
+const STATUS: Record<LoanStatus, { label: string; icon: IconName; className: string }> = {
+  requested: { label: "Solicitado", icon: "clock", className: "bg-chip text-on-chip" },
+  approved: { label: "Prestado", icon: "check", className: "bg-brand text-on-brand" },
   rejected: {
     label: "Rechazado",
-    className: "bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-200",
+    icon: "x",
+    className: "border-[1.5px] border-coral bg-surface text-accent",
   },
-  returned: {
-    label: "Devuelto",
-    className: "bg-zinc-200 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
-  },
+  returned: { label: "Devuelto", icon: "undo", className: "bg-line text-foreground" },
 };
 
 export function StatusBadge({ status }: { status: LoanStatus }) {
-  const { label, className } = STATUS[status];
+  const { label, icon, className } = STATUS[status];
   return (
-    <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${className}`}>{label}</span>
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold ${className}`}>
+      <Icon name={icon} />
+      {label}
+    </span>
   );
 }
 
 export function Alert({ kind, children }: { kind: "error" | "ok"; children: React.ReactNode }) {
   const styles =
     kind === "error"
-      ? "bg-red-50 text-red-800 dark:bg-red-950 dark:text-red-200"
-      : "bg-emerald-50 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200";
+      ? "border-[1.5px] border-coral bg-surface text-accent"
+      : "bg-chip text-on-chip";
   return (
     <p
       role={kind === "error" ? "alert" : "status"}
-      className={`rounded-lg px-3 py-2 text-sm ${styles}`}>
-      {children}
+      className={`flex items-center gap-2.5 rounded-xl px-3.5 py-3 text-sm font-medium ${styles}`}>
+      <Icon name={kind === "error" ? "alert" : "check"} className="h-[18px] w-[18px] shrink-0" />
+      <span>{children}</span>
     </p>
   );
 }

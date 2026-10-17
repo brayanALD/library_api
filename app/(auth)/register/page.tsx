@@ -13,11 +13,14 @@ async function RedirectIfSignedIn() {
 
 export default function RegisterPage() {
   return (
-    <div className="mx-auto max-w-sm">
+    <div className="flex flex-col gap-7">
       <Suspense>
         <RedirectIfSignedIn />
       </Suspense>
-      <h1 className="mb-6 text-2xl font-semibold">Crear cuenta</h1>
+      <div className="flex flex-col gap-2">
+        <h1 className="font-serif text-4xl font-bold tracking-tight text-accent">Crear cuenta</h1>
+        <p className="text-base text-muted">Regístrate como estudiante para solicitar préstamos.</p>
+      </div>
       <AuthForm mode="register" />
     </div>
   );

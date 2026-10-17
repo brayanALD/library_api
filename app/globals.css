@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
+/*
+ * Biblioteca Aldana · tokens de color.
+ * Paleta base (Coolors, sin alterar): burgundy #721121, reddish brown #a5402d,
+ * lobster pink #f15156, light caramel #ffc07f, apricot cream #ffcf99.
+ * Los neutros (fondo, tinta, líneas) son tintes cálidos derivados de esa paleta.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --burgundy: #721121;
+  --brown: #a5402d;
+  --coral: #f15156;
+  --caramel: #ffc07f;
+  --apricot: #ffcf99;
+  --cream: #fff7ec;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --background: #fff7ec;
+  --surface: #ffffff;
+  --foreground: #2b0a10;
+  --muted: #6b3a3f;
+  --line: #f0d3b0;
+  --field: #ffffff;
+  --field-line: #e8c9a4;
+
+  --accent: #721121; /* titulares y enlaces */
+  --brand: #721121; /* botones principales */
+  --on-brand: #fff7ec;
+  --brand-hover: #a5402d;
+  --chip: #ffcf99;
+  --on-chip: #721121;
+  --hero: #721121;
+  --on-hero: #fff7ec;
+  --hero-muted: #ffcf99;
+  --focus: #a5402d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1c0a0e;
+    --surface: #2a1015;
+    --foreground: #ffe9d0;
+    --muted: #e3bd9f;
+    --line: #4a2229;
+    --field: #1c0a0e;
+    --field-line: #6a3a42;
+
+    --accent: #ffcf99;
+    --brand: #ffc07f;
+    --on-brand: #2b0a10;
+    --brand-hover: #ffcf99;
+    --chip: #4a2229;
+    --on-chip: #ffcf99;
+    --hero: #3a1118;
+    --on-hero: #fff7ec;
+    --hero-muted: #ffcf99;
+    --focus: #ffc07f;
   }
+}
+
+@theme inline {
+  --color-burgundy: var(--burgundy);
+  --color-brown: var(--brown);
+  --color-coral: var(--coral);
+  --color-caramel: var(--caramel);
+  --color-apricot: var(--apricot);
+  --color-cream: var(--cream);
+
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-field: var(--field);
+  --color-field-line: var(--field-line);
+
+  --color-accent: var(--accent);
+  --color-brand: var(--brand);
+  --color-on-brand: var(--on-brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-chip: var(--chip);
+  --color-on-chip: var(--on-chip);
+  --color-hero: var(--hero);
+  --color-on-hero: var(--on-hero);
+  --color-hero-muted: var(--hero-muted);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-fraunces);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+/* Foco visible y consistente en todos los controles (accesibilidad por teclado). */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
